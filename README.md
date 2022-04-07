@@ -11,10 +11,12 @@ This repository contains a NodeJS sample project, with mongoose and express, and
 #### Requirements to run
 
 In order to be able to run this project on your local computer, you will need:
+
 - [NodeJS](https://nodejs.org/es/download/) 12 or higher running in your computer
 - MongoDB [installed](https://docs.mongodb.com/manual/installation/) and running in the port 27017
 
 To start the project, you have to run:
+
 - `npm install`
 - `npm start`
 
@@ -54,36 +56,41 @@ curl --location --request GET 'http://localhost:4000/public/web/tracking/6091816
 ```
 
 #### Data model
-This sample project contains two entities:
-+ Deliveries:
-    + when: ISODate with the time of delivery
-    + origin: Object containing the address of pickup
-    + destination: Object containing the address of delivery
-    + products: Array of ids of products in the database that has to be delivered.
-+ Products:
-    + reference: Name of the product,
-    + description: Description of the product,
-    + weight: Weight of the product in grams,
-    + height: Height of the product in centimeters
 
+This sample project contains two entities:
+
+- Deliveries:
+  - when: ISODate with the time of delivery
+  - origin: Object containing the address of pickup
+  - destination: Object containing the address of delivery
+  - products: Array of ids of products in the database that has to be delivered.
+- Products:
+  - reference: Name of the product,
+  - description: Description of the product,
+  - weight: Weight of the product in grams,
+  - height: Height of the product in centimeters
 
 ## Challenge
+
 You will have to create a new endpoint under the route /api/v1/deliveries/... that allows the client to filter some deliveries based on some products characteristics.
 
 This endpoint will receive as a parameter:
- + dateFrom: ISODate
- + dateTo: ISODate
- + weight: Number
- + page: Number (page number to retrieve)
- + limit: Number (Amount of results to retrieve)
- 
+
+- dateFrom: ISODate
+- dateTo: ISODate
+- weight: Number
+- page: Number (page number to retrieve)
+- limit: Number (Amount of results to retrieve)
+
 The query has to retrieve all the deliveries between the date range (dateFrom and dateTo), that contains at least one product with weights equal or greater than the weight sent as param.
 
 The response has to contain:
-+ totalResults: Number (The amount of documents that match the query)
-+ deliveries: Array (With each delivery document found with the property products populated)
+
+- totalResults: Number (The amount of documents that match the query)
+- deliveries: Array (With each delivery document found with all the products populated, not only the products filtered)
 
 Example of response:
+
 ```
 Parameters sent:
  + dateFrom: "2021-01-05T00:01:00.000Z"
@@ -141,8 +148,7 @@ Response received:
 }
 ```
 
-We assume that a reasonable time for you to be able to solve this challenge is 4 hours. 
-
+We assume that a reasonable time for you to be able to solve this challenge is 4 hours.
 
 ###### Español
 
@@ -155,10 +161,12 @@ El respositorio contiene un proyecto en NodeJS de ejemplo, con mongoose y expres
 #### Como iniciar el proyecto
 
 Para poder correr el proyecto en tu ordenador, vas a necesitar:
+
 - [NodeJS](https://nodejs.org/es/download/) 12 o versión superior corriendo en tu ordenador
 - MongoDB [instalado](https://docs.mongodb.com/manual/installation/) y corriendo en el puerto 27017
 
 Para iniciar el proyecto, debes ejecutar:
+
 - `npm install`
 - `npm start`
 
@@ -198,36 +206,41 @@ curl --location --request GET 'http://localhost:4000/public/web/tracking/6091816
 ```
 
 #### Modelo de datos
-Este proyecto contiene dos entidades:
-+ Deliveries:
-    + when: ISODate con la fecha de delivery
-    + origin: Object que contiene la dirección de pickup
-    + destination: Object que contiene la dirección de delivery
-    + products: Array de ids de productos que ya existen en la colección de products.
-+ Products:
-    + reference: Nombre del producto,
-    + description: Descripción del producto,
-    + weight: Peso del producto en gramos,
-    + height: Altura del producto en centímetros
 
+Este proyecto contiene dos entidades:
+
+- Deliveries:
+  - when: ISODate con la fecha de delivery
+  - origin: Object que contiene la dirección de pickup
+  - destination: Object que contiene la dirección de delivery
+  - products: Array de ids de productos que ya existen en la colección de products.
+- Products:
+  - reference: Nombre del producto,
+  - description: Descripción del producto,
+  - weight: Peso del producto en gramos,
+  - height: Altura del producto en centímetros
 
 ## Desafío
+
 Deberas crear un nuevo endpoint bajo la ruta /api/v1/deliveries/... que permita al cliente filtrar deliveries en base a ciertas características de los productos.
 
 Este endpoint recibirá como parámetro:
- + dateFrom: ISODate
- + dateTo: ISODate
- + weight: Number
- + page: Number (número de página a devolver)
- + limit: Number (Cantidad de resultados a devolver)
- 
+
+- dateFrom: ISODate
+- dateTo: ISODate
+- weight: Number
+- page: Number (número de página a devolver)
+- limit: Number (Cantidad de resultados a devolver)
+
 La query debe devolver todos los deliveries contemplados en el rango de fecha, que contienen al menos un producto cuyo peso es igual o superior al peso enviado como parámetro.
 
 La respuesta debe contener:
-+ totalResults: Number (Cantidad de documentos totales que coinciden con la query)
-+ deliveries: Array (Con los documentos de delivery encontrados y sus productos populados)
+
+- totalResults: Number (Cantidad de documentos totales que coinciden con la query)
+- deliveries: Array (Con los documentos de delivery encontrados y todos sus productos populados, no solo los que se filtraron)
 
 Ejemplo:
+
 ```
 Parameters sent:
  + dateFrom: "2021-01-05T00:01:00.000Z"
@@ -284,7 +297,5 @@ Response received:
                 }]
 }
 ```
-Estimamos que un tiempo razonable para que puedas resolver este desafío es de 4 horas.
 
- 
- 
+Estimamos que un tiempo razonable para que puedas resolver este desafío es de 4 horas.
