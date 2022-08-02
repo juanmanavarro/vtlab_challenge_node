@@ -11,7 +11,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr @click="show('1')">
           <th scope="row">1</th>
           <td>Mark</td>
           <td>Otto</td>
@@ -66,8 +66,12 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import AppLayout from '@/layouts/AppLayout.vue'
+
+const router = useRouter()
 
 const visibleRows = ref(10);
 
+const show = (id) => router.push({ name: 'order-detail', params: { id } })
 </script>
