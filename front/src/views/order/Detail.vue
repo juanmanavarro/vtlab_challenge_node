@@ -1,7 +1,7 @@
 <template>
   <AppLayout>
     <template v-slot:title>
-      <button class="btn btn-link text-decoration-none fs-2" @click="back">{{ '<' }}</button>
+      <a href="#" class="text-decoration-none fs-2 me-2" @click.prevent="back">&lt;</a>
       <h1 class="mb-0">Order detail</h1>
     </template>
     <template v-slot:content>
