@@ -7,6 +7,11 @@
     </nav>
   </header>
   <main class="container pt-5">
-    <slot />
+    <div class="row">
+      <div class="col d-flex align-items-center">
+        <slot name="title"></slot>
+      </div>
+    </div>
+    <slot name="content" />
   </main>
 </template>
