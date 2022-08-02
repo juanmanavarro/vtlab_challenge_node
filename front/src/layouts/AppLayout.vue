@@ -3,6 +3,7 @@
     <nav class="navbar navbar-light bg-light">
       <div class="container-fluid">
         <span class="navbar-brand mb-0 h1">Navbar</span>
+        <a href="#" @click.prevent="logout">Logout</a>
       </div>
     </nav>
   </header>
@@ -15,3 +16,11 @@
     <slot name="content" />
   </main>
 </template>
+
+<script setup>
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
+
+const logout = () => router.replace({ name: 'login' })
+</script>
