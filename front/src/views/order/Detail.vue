@@ -1,7 +1,9 @@
 <template>
   <AppLayout>
     <template v-slot:title>
-      <button class="btn btn-link text-decoration-none fs-2" @click="back">{{ '<' }}</button>
+      <button class="btn btn-link text-decoration-none fs-2" @click="back">
+        {{ "<" }}
+      </button>
       <h1 class="mb-0">Order detail</h1>
     </template>
     <template v-slot:content>
@@ -39,10 +41,10 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
-import AppLayout from '@/layouts/AppLayout.vue'
+import { useRouter } from "vue-router";
+import AppLayout from "@/layouts/AppLayout.vue";
 
-const router = useRouter()
+const router = useRouter();
 
-const back = () => router.push({ name: 'orders' })
+const back = () => router.push({ name: "orders" });
 </script>
