@@ -25,7 +25,10 @@ import { useRouter } from "vue-router";
 const store = useStore();
 const router = useRouter();
 
-const logout = () => router.replace({ name: "login" });
+const logout = () => {
+  store.dispatch('auth/logout');
+  router.replace({ name: "login" });
+};
 
 onMounted(() => {
   if (!store.state.auth.isAuthed && !localStorage.getItem('isAuthed') === 'true') {
