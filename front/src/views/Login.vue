@@ -5,7 +5,7 @@
         Login
       </div>
       <div class="card-body">
-        <form submit.prevent="login">
+        <form @submit.prevent="login">
           <input class="form-control mb-2" type="text" placeholder="Username">
           <input class="form-control mb-2" type="text" placeholder="Password">
           <button class="btn btn-primary btn-sm float-end" type="submit">Send</button>
@@ -14,6 +14,13 @@
     </div>
   </main>
 </template>
+
+<script setup>
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
+const login = () => router.push({ name: 'orders' })
+</script>
 
 <style scoped>
 .container  {
