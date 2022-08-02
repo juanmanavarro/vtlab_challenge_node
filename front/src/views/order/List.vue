@@ -56,7 +56,11 @@
         <div class="col">
           <div class="d-flex align-items-center justify-content-end">
             <span>Visible rows:&nbsp;</span>
-            <select class="form-select w-25" v-model="visibleRows" aria-label="Default select example">
+            <select
+              class="form-select w-25"
+              v-model="visibleRows"
+              aria-label="Default select example"
+            >
               <option value="10">10</option>
               <option value="20">20</option>
               <option value="30">30</option>
@@ -69,15 +73,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import AppLayout from '@/layouts/AppLayout.vue'
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import AppLayout from "@/layouts/AppLayout.vue";
 
-const router = useRouter()
+const router = useRouter();
 
 const visibleRows = ref(10);
 
-const show = (id) => router.push({ name: 'order-detail', params: { id } })
+const show = (id) => router.push({ name: "order-detail", params: { id } });
 </script>
 
 <style scoped>

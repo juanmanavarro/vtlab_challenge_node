@@ -18,9 +18,23 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
+import { onMounted } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
-const router = useRouter()
+const store = useStore();
+const router = useRouter();
 
-const logout = () => router.replace({ name: 'login' })
+const logout = () => {
+  store.dispatch('auth/logout');
+  router.replace({ name: "login" });
+};
+
+onMounted(() => {
+  if (!store.state.auth.isAuthed && !localStorage.getItem('isAuthed') === 'true') {
+    router.replace({ name: "login" });
+  } else {
+    store.commit('auth/setIsAuthed', localStorage.getItem('isAuthed') === 'true')
+  }
+});
 </script>

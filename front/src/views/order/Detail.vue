@@ -39,10 +39,10 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
-import AppLayout from '@/layouts/AppLayout.vue'
+import { useRouter } from "vue-router";
+import AppLayout from "@/layouts/AppLayout.vue";
 
-const router = useRouter()
+const router = useRouter();
 
-const back = () => router.push({ name: 'orders' })
+const back = () => router.push({ name: "orders" });
 </script>
