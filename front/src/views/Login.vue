@@ -29,7 +29,7 @@ import { useRouter } from "vue-router";
 const store = useStore();
 const router = useRouter();
 
-const password = ref("abcaa");
+const password = ref("");
 const showError = ref(false);
 
 const login = async () => {
