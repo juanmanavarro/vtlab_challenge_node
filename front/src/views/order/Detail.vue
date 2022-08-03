@@ -1,7 +1,7 @@
 <template>
   <AppLayout>
     <template v-slot:title>
-      <a href="#" class="text-decoration-none fs-3 me-2" @click.prevent="back">&lt;</a>
+      <a href="#" class="text-decoration-none fs-4 me-2" @click.prevent="back">&lt;</a>
       <h2 class="mb-0">Order detail</h2>
     </template>
     <template v-slot:content>

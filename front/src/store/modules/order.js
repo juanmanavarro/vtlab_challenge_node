@@ -54,6 +54,9 @@ const actions = {
       console.error(error);
     }
   },
+  reorder({ commit }, orders) {
+    commit('setOrders', orders);
+  },
 };
 
 const mutations = {

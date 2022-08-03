@@ -42,21 +42,32 @@
       <table class="table mt-4 table-hover">
         <thead>
           <tr>
-            <th scope="col">Date</th>
-            <th scope="col">Origin</th>
-            <th scope="col">Destination</th>
-            <th scope="col">Products</th>
+            <td>#</td>
+            <th>Date</th>
+            <th>Origin</th>
+            <th>Destination</th>
+            <th>Products</th>
           </tr>
         </thead>
-        <tbody>
-          <tr v-for="order in orders" :key="order._id" @click="show(order._id)">
+        <draggable
+          v-model="orders"
+          handle=".draggable"
+          tag="tbody"
+        >
+          <tr
+            class="draggable"
+            v-for="[index, order] in orders.entries()"
+            :key="order._id"
+            @click="show(order._id)"
+          >
+            <th>{{ (page - 1) * limit + index + 1 }}</th>
             <td>{{ order.when }}</td>
             <!-- TODO format date -->
             <td>{{ order.origin.city }}</td>
             <td>{{ order.destination.city }}</td>
             <td>{{ order.products.length }}</td>
           </tr>
-        </tbody>
+        </draggable>
       </table>
     </template>
   </AppLayout>
@@ -67,6 +78,7 @@ import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import AppLayout from "@/layouts/AppLayout.vue";
 import { useStore } from "vuex";
+import { VueDraggableNext as draggable } from 'vue-draggable-next';
 
 const router = useRouter();
 const store = useStore();
@@ -74,7 +86,10 @@ const store = useStore();
 const limit = ref("10");
 const page = ref("1");
 
-const orders = computed(() => store.state.order.orders);
+const orders = computed({
+  get: () => store.state.order.orders,
+  set: (orders) => store.dispatch('order/reorder', orders),
+});
 const pages = computed(() => {
   const { totalResults, query } = store.state.order;
   return totalResults / query.limit;
