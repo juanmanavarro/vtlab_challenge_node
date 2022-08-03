@@ -6,7 +6,7 @@
     </template>
     <template v-slot:content>
       <Loading v-if="!order" />
-      <table v-else class="table mt-4 w-50">
+      <table v-else class="table w-50">
         <tbody>
           <tr>
             <th>Date</th>

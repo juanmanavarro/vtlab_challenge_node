@@ -4,67 +4,72 @@
       <h2 class="mb-0">Orders list</h2>
     </template>
     <template v-slot:content>
-      <div class="row mt-5">
-        <div class="col">
-          <!-- TODO improve pagination UX -->
-          <div class="d-flex align-items-center justify-content-start">
-            <span>Page&nbsp;</span>
-            <select
-              class="form-select w-25"
-              aria-label="Paginator select"
-              v-model="page"
-              @change="ordersRequest"
-            >
-              <!-- TODO truncated to 10 pages  -->
-              <option v-for="page in 10" :key="page" :value="page">
-                {{ page }}
-              </option>
-            </select>
-            <span>&nbsp;of {{ pages }}</span>
-          </div>
-        </div>
-        <div class="col">
-          <div class="d-flex align-items-center justify-content-end">
-            <span>Visible rows:&nbsp;</span>
-            <select
-              class="form-select w-25"
-              aria-label="Limiter select"
-              v-model="limit"
-              @change="ordersRequest"
-            >
-              <option value="10">10</option>
-              <option value="20">20</option>
-              <option value="30">30</option>
-            </select>
-          </div>
-        </div>
+      <div class="alert alert-warning" v-if="!orders?.length">
+        <strong>No data</strong>
       </div>
-      <table class="table mt-4 table-hover">
-        <thead>
-          <tr>
-            <td>#</td>
-            <th>Date</th>
-            <th>Origin</th>
-            <th>Destination</th>
-            <th>Products</th>
-          </tr>
-        </thead>
-        <draggable v-model="orders" handle=".draggable" tag="tbody">
-          <tr
-            class="draggable"
-            v-for="[index, order] in orders.entries()"
-            :key="order._id"
-            @click="show(order._id)"
-          >
-            <th>{{ (page - 1) * limit + index + 1 }}</th>
-            <td>{{ order.when }}</td>
-            <!-- TODO format date -->
-            <td>{{ order.origin.city }}</td>
-            <td>{{ order.destination.city }}</td>
-            <td>{{ order.products.length }}</td>
-          </tr>
-        </draggable>
-      </table>
+      <template v-else>
+        <div class="row">
+          <div class="col">
+            <!-- TODO improve pagination UX -->
+            <div class="d-flex align-items-center justify-content-start">
+              <span>Page&nbsp;</span>
+              <select
+                class="form-select w-25"
+                aria-label="Paginator select"
+                v-model="page"
+                @change="ordersRequest"
+              >
+                <!-- TODO truncated to 10 pages  -->
+                <option v-for="page in 10" :key="page" :value="page">
+                  {{ page }}
+                </option>
+              </select>
+              <span>&nbsp;of {{ pages }}</span>
+            </div>
+          </div>
+          <div class="col">
+            <div class="d-flex align-items-center justify-content-end">
+              <span>Visible rows:&nbsp;</span>
+              <select
+                class="form-select w-25"
+                aria-label="Limiter select"
+                v-model="limit"
+                @change="ordersRequest"
+              >
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <table class="table mt-4 table-hover">
+          <thead>
+            <tr>
+              <td>#</td>
+              <th>Date</th>
+              <th>Origin</th>
+              <th>Destination</th>
+              <th>Products</th>
+            </tr>
+          </thead>
+          <draggable v-model="orders" handle=".draggable" tag="tbody">
+            <tr
+              class="draggable"
+              v-for="[index, order] in orders.entries()"
+              :key="order._id"
+              @click="show(order._id)"
+            >
+              <th>{{ (page - 1) * limit + index + 1 }}</th>
+              <td>{{ order.when }}</td>
+              <!-- TODO format date -->
+              <td>{{ order.origin.city }}</td>
+              <td>{{ order.destination.city }}</td>
+              <td>{{ order.products.length }}</td>
+            </tr>
+          </draggable>
+        </table>
+      </template>
     </template>
   </AppLayout>
 </template>
