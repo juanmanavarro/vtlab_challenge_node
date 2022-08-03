@@ -24,7 +24,7 @@
                   {{ page }}
                 </option>
               </select>
-              <span>&nbsp;of {{ pages }}</span>
+              <span>&nbsp;of {{ Math.ceil(pages) }}</span>
             </div>
           </div>
           <div class="col">
