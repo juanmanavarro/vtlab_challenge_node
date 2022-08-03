@@ -3,6 +3,7 @@
     <div class="card">
       <div class="card-header">Login</div>
       <div class="card-body">
+        <div v-if="showError" class="text-danger">Login error</div>
         <form @submit.prevent="login">
           <input class="form-control mb-2" type="text" placeholder="Username" />
           <input
@@ -29,12 +30,18 @@ const store = useStore();
 const router = useRouter();
 
 const password = ref("abcaa");
+const showError = ref(false);
 
 const login = async () => {
+  showError.value = false;
+
   const isAuthed = await store.dispatch("auth/login", {
     password: password.value,
   });
-  if (!isAuthed) return;
+  if (!isAuthed) {
+    showError.value = true;
+    return;
+  }
   router.push({ name: "orders" });
 };
 </script>
