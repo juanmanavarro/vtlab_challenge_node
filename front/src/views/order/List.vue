@@ -1,35 +1,24 @@
 <template>
   <AppLayout>
     <template v-slot:title>
-      <h1 class="mb-0">Orders list</h1>
+      <h2 class="mb-0">Orders list</h2>
     </template>
     <template v-slot:content>
       <table class="table mt-4 table-hover">
         <thead>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Date</th>
+            <th scope="col">Origin</th>
+            <th scope="col">Destination</th>
+            <th scope="col">Products</th>
           </tr>
         </thead>
         <tbody>
-          <tr @click="show('1')">
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
+          <tr v-for="order in orders" :key="order._id" @click="show(order._id)">
+            <td>{{ order.when }}</td>
+            <td>{{ order.origin.city }}</td>
+            <td>{{ order.destination.city }}</td>
+            <td>{{ order.products.length }}</td>
           </tr>
         </tbody>
       </table>
@@ -73,15 +62,23 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import AppLayout from "@/layouts/AppLayout.vue";
+import { useStore } from "vuex";
 
 const router = useRouter();
+const store = useStore();
 
 const visibleRows = ref(10);
 
+const orders = computed(() => store.state.order.orders);
+
 const show = (id) => router.push({ name: "order-detail", params: { id } });
+
+onMounted(() => {
+  store.dispatch('order/fetch');
+});
 </script>
 
 <style scoped>
