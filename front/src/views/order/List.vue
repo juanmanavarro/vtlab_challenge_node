@@ -15,7 +15,7 @@
         </thead>
         <tbody>
           <tr v-for="order in orders" :key="order._id" @click="show(order._id)">
-            <td>{{ order.when }}</td>
+            <td>{{ order.when }}</td> <!-- TODO format date -->
             <td>{{ order.origin.city }}</td>
             <td>{{ order.destination.city }}</td>
             <td>{{ order.products.length }}</td>

@@ -15,6 +15,7 @@ const actions = {
     if ( !state.isAuthed ) return;
     localStorage.removeItem('isAuthed');
     commit("setIsAuthed", false);
+    commit('order/reset', null, { root: true });
   },
 };
 

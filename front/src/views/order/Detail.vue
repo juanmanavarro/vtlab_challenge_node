@@ -1,36 +1,28 @@
 <template>
   <AppLayout>
     <template v-slot:title>
-      <a href="#" class="text-decoration-none fs-2 me-2" @click.prevent="back">&lt;</a>
-      <h1 class="mb-0">Order detail</h1>
+      <a href="#" class="text-decoration-none fs-3 me-2" @click.prevent="back">&lt;</a>
+      <h2 class="mb-0">Order detail</h2>
     </template>
     <template v-slot:content>
-      <table class="table mt-4">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-          </tr>
-        </thead>
+      <Loading v-if="!order" />
+      <table v-else class="table mt-4 w-50">
         <tbody>
           <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+            <th>Date</th>
+            <td class="text-end">{{ order.when }}</td>
           </tr>
           <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
+            <th>Origin</th>
+            <td class="text-end">{{ order.origin.city }}</td>
           </tr>
           <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
+            <th>Destination</th>
+            <td class="text-end">{{ order.destination.city }}</td>
+          </tr>
+          <tr>
+            <th>Products</th>
+            <td class="text-end">{{ order.products.length }}</td>
           </tr>
         </tbody>
       </table>
@@ -39,10 +31,21 @@
 </template>
 
 <script setup>
-import { useRouter } from "vue-router";
+import { onMounted, computed } from 'vue';
+import { useStore } from "vuex";
+import { useRouter, useRoute } from "vue-router";
 import AppLayout from "@/layouts/AppLayout.vue";
+import Loading from "@/components/Loading.vue";
 
+const store = useStore();
 const router = useRouter();
+const route = useRoute();
+
+const order = computed(() => store.state.order.order);
 
 const back = () => router.push({ name: "orders" });
+
+onMounted(() => {
+  store.dispatch('order/get', route.params.id);
+});
 </script>
