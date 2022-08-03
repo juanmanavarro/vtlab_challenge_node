@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import { onMounted, computed } from 'vue';
+import { onMounted, computed } from "vue";
 import { useStore } from "vuex";
 import { useRouter, useRoute } from "vue-router";
 import AppLayout from "@/layouts/AppLayout.vue";
@@ -46,6 +46,6 @@ const order = computed(() => store.state.order.order);
 const back = () => router.push({ name: "orders" });
 
 onMounted(() => {
-  store.dispatch('order/get', route.params.id);
+  store.dispatch("order/get", route.params.id);
 });
 </script>

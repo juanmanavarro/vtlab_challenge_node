@@ -7,21 +7,32 @@ const getDefaultState = () => {
   return {
     orders: [],
     order: null,
+    totalResults: 0,
+    query: {
+      limit: '10',
+      page: '1',
+    },
   };
 };
 
 const state = getDefaultState();
 
 const actions = {
-  async fetch({ commit }) {
+  async fetch({ state, commit }, payload = null) {
+    // TODO improve object comparison with lodash or something
+    if (
+      state.orders.length
+      && payload?.page === state.query.page
+      && payload?.limit === state.query.limit
+    ) return;
+    payload ||= state.query;
     try {
       const { data } = await axios.get(`${baseUrl}/deliveries`, {
-        params: {
-          limit: 10,
-          page: 1,
-        }
+        params: payload,
       });
       commit('setOrders', data.data.deliveries);
+      commit('setTotalResults', data.data.totalResults);
+      commit('setQuery', payload);
     } catch (error) {
       console.error(error);
     }
@@ -49,8 +60,14 @@ const mutations = {
   setOrders(state, orders) {
     state.orders = orders;
   },
+  setTotalResults(state, total) {
+    state.totalResults = total;
+  },
   setOrder(state, order) {
     state.order = order;
+  },
+  setQuery(state, query) {
+    Object.assign(state.query, query);
   },
   reset(state) {
     Object.assign(state, getDefaultState());
