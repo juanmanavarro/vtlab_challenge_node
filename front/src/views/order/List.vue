@@ -49,11 +49,7 @@
             <th>Products</th>
           </tr>
         </thead>
-        <draggable
-          v-model="orders"
-          handle=".draggable"
-          tag="tbody"
-        >
+        <draggable v-model="orders" handle=".draggable" tag="tbody">
           <tr
             class="draggable"
             v-for="[index, order] in orders.entries()"
@@ -78,7 +74,7 @@ import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import AppLayout from "@/layouts/AppLayout.vue";
 import { useStore } from "vuex";
-import { VueDraggableNext as draggable } from 'vue-draggable-next';
+import { VueDraggableNext as draggable } from "vue-draggable-next";
 
 const router = useRouter();
 const store = useStore();
@@ -88,7 +84,7 @@ const page = ref("1");
 
 const orders = computed({
   get: () => store.state.order.orders,
-  set: (orders) => store.dispatch('order/reorder', orders),
+  set: (orders) => store.dispatch("order/reorder", orders),
 });
 const pages = computed(() => {
   const { totalResults, query } = store.state.order;

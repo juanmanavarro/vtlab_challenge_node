@@ -26,15 +26,21 @@ const store = useStore();
 const router = useRouter();
 
 const logout = () => {
-  store.dispatch('auth/logout');
+  store.dispatch("auth/logout");
   router.replace({ name: "login" });
 };
 
 onMounted(() => {
-  if (!store.state.auth.isAuthed && !localStorage.getItem('isAuthed') === 'true') {
+  if (
+    !store.state.auth.isAuthed
+    && !localStorage.getItem("isAuthed") === "true"
+  ) {
     router.replace({ name: "login" });
   } else {
-    store.commit('auth/setIsAuthed', localStorage.getItem('isAuthed') === 'true')
+    store.commit(
+      "auth/setIsAuthed",
+      localStorage.getItem("isAuthed") === "true"
+    );
   }
 });
 </script>
