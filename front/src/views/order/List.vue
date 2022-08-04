@@ -10,11 +10,20 @@
       <template v-else>
         <div class="row">
           <div class="col">
+            <button
+              :class="`btn ${canRearrange ? 'btn-success' : 'btn-outline-secondary' }`"
+              @click="canRearrange = !canRearrange"
+            >
+              Rearrange
+            </button>
+          </div>
+          <div class="col"></div>
+          <div class="col">
             <!-- TODO improve pagination UX -->
             <div class="d-flex align-items-center justify-content-start">
               <span>Page&nbsp;</span>
               <select
-                class="form-select w-25"
+                class="form-select w-50"
                 aria-label="Paginator select"
                 v-model="page"
                 @change="ordersRequest"
@@ -31,7 +40,7 @@
             <div class="d-flex align-items-center justify-content-end">
               <span>Visible rows:&nbsp;</span>
               <select
-                class="form-select w-25"
+                class="form-select w-50"
                 aria-label="Limiter select"
                 v-model="limit"
                 @change="ordersRequest"
@@ -53,9 +62,13 @@
               <th>Products</th>
             </tr>
           </thead>
-          <draggable v-model="orders" handle=".draggable" tag="tbody">
+          <draggable
+            v-model="orders"
+            :handle="`${canRearrange ? '.draggable' : null}`"
+            tag="tbody"
+          >
             <tr
-              class="draggable"
+              :class="`draggable user-select-none ${canRearrange ? 'cursor-drag' : null}`"
               v-for="[index, order] in orders.entries()"
               :key="order._id"
               @click="show(order._id)"
@@ -86,6 +99,7 @@ const store = useStore();
 
 const limit = ref("10");
 const page = ref("1");
+const canRearrange = ref(false);
 
 const orders = computed({
   get: () => store.state.order.orders,
@@ -114,5 +128,9 @@ onMounted(() => {
 <style scoped>
 tbody > tr {
   cursor: pointer;
+}
+/* TODO to general css file */
+.cursor-drag {
+  cursor: grab;
 }
 </style>
